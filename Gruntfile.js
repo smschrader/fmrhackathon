@@ -148,6 +148,30 @@ module.exports = function (grunt) {
         }
       }
     },
+      
+    jade: {
+        dist: {
+            files: [{
+                expand: true,
+                cwd: '.tmp',
+                src: ['**/*.html'], // Actual pattern(s) to match.
+                dest: '<%= config.dist %>'
+            }]
+        },
+        compile: {
+           options: {
+               client: false,
+               pretty: true
+           },
+           files: [ {
+            cwd: '<%= config.app %>/views/',
+            dest: '.tmp',
+             src: ['**/*.jade'],            
+             expand: true,
+             ext: ".html"
+           } ]
+        }
+    },
 
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
