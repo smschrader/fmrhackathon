@@ -33,14 +33,14 @@ module.exports = function (grunt) {
       bower: {
         files: ['bower.json'],
         tasks: ['wiredep']
-      },
+      },      
       js: {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
         tasks: ['jshint'],
         options: {
           livereload: true
         }
-      },
+      },      
       jstest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['test:watch']
@@ -389,6 +389,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
+    'jade',
       'watch'
     ]);
   });
@@ -412,11 +413,14 @@ module.exports = function (grunt) {
       'mocha'
     ]);
   });
+    
+  grunt.loadNpmTasks('grunt-contrib-jade');
 
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
-    'useminPrepare',
+      'jade:dist',
+    'useminPrepare',      
     'concurrent:dist',
     'autoprefixer',
     'concat',
@@ -434,4 +438,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+    
+  
 };
