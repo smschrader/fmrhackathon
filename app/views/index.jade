@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    #main_contaienr
+        #nav_container
+            .burger_container
+                span.icon_stack
+            .input_container
+                p.input_copy
+                input(
+                    type='text'
+                    name='searchterms'
+                    id="search_tearms"            
+                )
+                a(href='#', id='search')
+
+        #map_main_contaienr
+            #map-canvas
+
+        // build:js(.) scripts/vendor.js
+        // bower:js
+        script(src='bower_components/jquery/dist/jquery.js')  
+        script(src='../scripts/main.js')
+        // endbower
+        // endbuild
+
+
+        script(src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyAzLv-XGfssO8sOoii7Iuez65iQyXBpoP8")
+        
+    
+        
