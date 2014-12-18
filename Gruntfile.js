@@ -8,6 +8,8 @@
 // If you want to recursively match all subfolders, use:
 // 'test/spec/**/*.js'
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 var twit = require('twit'),
     //WebSocketServer = require('ws').Server,
@@ -172,6 +174,24 @@ Twitter = new twit({
 
 
 //All the grunt stuff!
+=======
+=======
+>>>>>>> Stashed changes
+var Twit = require('twit');
+
+var Twitter = new Twit({
+    consumer_key:         'L9w6gUWqsITRN1EpV23M1w'
+  , consumer_secret:      'oJUexwxzn194lbIjB6J4AmFFvR8eQSZjrh8fGtHlE'
+  , access_token:         '14253620-hVIu7n5izuCXuDZRVEKBfbfCtRq1wVB4MJPBZg9HA'
+  , access_token_secret:  'MYs7mxJfuuqaU9t2kE5OUpKfljxV9T2AGhOEUeSVcoo64'
+})
+
+//var googleapis = require('googleapis');
+
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
@@ -185,7 +205,7 @@ module.exports = function (grunt) {
     app: 'app',
     dist: 'dist'
   };
-
+    
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -637,5 +657,11 @@ module.exports = function (grunt) {
     'build'
   ]);
     
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 };
