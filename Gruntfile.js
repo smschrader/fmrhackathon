@@ -358,7 +358,8 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'includes/{,*/}{,*/}*.*'
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
@@ -371,6 +372,13 @@ module.exports = function (grunt) {
         cwd: '<%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      includes: {
+        expand: true,
+        dot: true,
+        cwd: '<%= config.app %>/includes',
+        dest: '.tmp/includes/',
+        src: '{,*/}{,*/}*.*'
       }
     },
 
@@ -395,7 +403,8 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'sass:server',
-        'copy:styles'
+        'copy:styles',
+        'copy:includes'  
       ],
       test: [
         'copy:styles'

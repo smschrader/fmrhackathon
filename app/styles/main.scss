@@ -1,31 +1,235 @@
 // bower:scss
 // endbower
 
+@import 'reset';
+@import 'mixins';
+@import 'fonts';
+@import 'icons';
+
+$headerfont: NotoSerifRegular, Arial, Helvetica, Sans-Serif;
+$textfont: NotoSansRegular, Arial, Helvetica, Sans-Serif;
+$textfont: NotoSansRegular, Arial, Helvetica, Sans-Serif;
+$Semibold: NotoSansBold, Arial, Helvetica, Sans-Serif;
+
+$darkGray: #636363;
+$mediumGray: #cccccc;
+$lightGray: #f1f1f1;	
+$linkColor: #0889fc;	
+$white: #f1f1f1;
+$green: #2ca53d;
+$red: #e63232;
+
+* { 
+   -moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;	
+}
+html {
+    width: 100%;
+    height: 100%;
+}
 body {
-  background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
+    font-family: $textfont;
+    font-size: 1.2em;
+    color: $darkGray;
+    line-height: 1.4;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;		
+}
+#map-canvas {
+    width: 100%;
+    min-width: 990px;
+    min-height: 100%;
+    padding: 0;	    
+    position: relative;
+    margin: 0;    	
+}
+h1, h2,	h3, h4, h5, h6 {
+    margin: 0;		
+    font-family: $headerfont;
+    font-weight: normal;		
+}			 
+h2 {
+    font-size: 1.5em;
+}
+h3 {
+    font-size: 1.3em;
+}
+h4 {
+    font-size: 1.1em;
+}
+h5 {
+    font-size: .9em;
+}
+h6 {
+    font-size: .7em;
 }
 
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
-  h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-}
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+// ----------------------------------------------------------------------------------------------
+//------------------------------------- Site Wide Styles ----------------------------------------
+//-----------------------------------------------------------------------------------------------
+#nav_container {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 999;    
 }
+    
+
+
+       
+
+
+// ----------------------------------------------------------------------------------------------
+//---------------------------------- Site Wide Button Styles ------------------------------------
+//-----------------------------------------------------------------------------------------------
+a.button, input[type="button"].button, input[type="submit"].button, button.button {
+	display: inline-block;
+	line-height: 2em;
+	padding: 0 10px;	
+	background: $lightGray;
+	border: 1px solid $mediumGray;
+	position: relative;
+	text-transform: capitalize;
+	font-family: $Semibold;
+	z-index: 1;	
+	@include box-shadow(0 0 3px $mediumGray);
+	cursor: pointer;	
+	behavior: url(/Includes/CSS/polyfills/PIE.htc);	
+	@include transition-property('background, box-shadow');
+	@include transition-duration(.25s);
+	outline: none;
+}
+a.button span {
+	padding: 0 0 0 10px;
+    font-size: .9em;			
+}
+//-------------------------------------------Blue Button ------------------------------------
+	.button.blue {
+		color: $linkColor;
+	}
+	.button.blue:hover,
+	.button.blue:focus {	
+		@include transition-property('background, box-shadow');
+		@include transition-duration(.25s);	
+		@include box-shadow(0 0 3px $linkColor);
+		background-image: linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);		
+		background-image: -o-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+		background-image: -moz-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+		background-image: -webkit-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+		background-image: -ms-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+
+		background-image: -webkit-gradient(
+			linear,
+			left top,
+			left bottom,
+			color-stop(0.61, rgb(241,241,241)),
+			color-stop(1, rgb(211,225,237))
+		);
+	}
+//-------------------------------------------Green Button -----------------------------------
+	.button.green {
+		color: $green; 
+	}
+	.button.green:hover,
+	.button.green:focus {	
+		@include transition-property('background, box-shadow');
+		@include transition-duration(.25s);	
+		@include box-shadow(0 0 3px $green);
+		background-image: linear-gradient(top, rgb(241,241,241) 61%, rgb(220,233,222) 100%);		
+		background-image: -o-linear-gradient(top, rgb(241,241,241) 61%, rgb(220,233,222) 100%);
+		background-image: -moz-linear-gradient(top, rgb(241,241,241) 61%, rgb(220,233,222) 100%);
+		background-image: -webkit-linear-gradient(top, rgb(241,241,241) 61%, rgb(220,233,222) 100%);
+		background-image: -ms-linear-gradient(top, rgb(241,241,241) 61%, rgb(220,233,222) 100%);
+
+		background-image: -webkit-gradient(
+			linear,
+			left top,
+			left bottom,
+			color-stop(0.61, rgb(241,241,241)),
+			color-stop(1, rgb(220,233,222))
+		);
+	}
+
+//-------------------------------------------Red Button -------------------------------------
+	.button.red {
+		color: $red; 
+	}
+	.button.red:hover,
+	.button.red:focus {	
+		@include transition-property('background, box-shadow');
+		@include transition-duration(.25s);	
+		@include box-shadow(0 0 3px $red);
+		background-image: linear-gradient(top, rgb(241,241,241) 61%, rgb(240,220,220) 100%);		
+		background-image: -o-linear-gradient(top, rgb(241,241,241) 61%, rgb(240,220,220) 100%);
+		background-image: -moz-linear-gradient(top, rgb(241,241,241) 61%, rgb(240,220,220) 100%);
+		background-image: -webkit-linear-gradient(top, rgb(241,241,241) 61%, rgb(240,220,220) 100%);
+		background-image: -ms-linear-gradient(top, rgb(241,241,241) 61%, rgb(240,220,220) 100%);
+
+		background-image: -webkit-gradient(
+			linear,
+			left top,
+			left bottom,
+			color-stop(0.61, rgb(241,241,241)),
+			color-stop(1, rgb(240,220,220))
+		);
+	}
+
+
+//-------------------------------------------Gray Button -------------------------------------
+    .button.gray {
+		color: $darkGray; 
+	}
+    .button.gray:hover,
+    .button.gray:focus {
+        @include transition-property('background, box-shadow');
+        @include transition-duration(.25s);
+        @include box-shadow(0 0 3px $darkGray);
+        background-image: linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);       
+        background-image: -o-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+        background-image: -moz-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+        background-image: -webkit-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+        background-image: -ms-linear-gradient(top, rgb(241,241,241) 61%, rgb(211,225,237) 100%);
+        background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0.61, rgb(241,241,241)), color-stop(1, rgb(211,225,237)) );
+    }
+
+
+
+// -----------------------------------------------------------------------------------------
+//----------------------------- Site Wide Input Box Styles ---------------------------------
+//---------------- set class="input" and I'll give you a formatted input  ------------------
+//------------------------------------------------------------------------------------------
+input[type="text"].input,
+input[type="password"].input,
+textarea.input {
+    float: left;
+    clear: left;
+    padding: 0 5px 0;
+	color: $darkGray !important;
+	font-size: 1em !important;
+    margin: 0;
+	line-height: 23px !important;    
+    height: 25px !important;
+	margin-bottom: 15px;
+	border: 1px solid $mediumGray !important;
+	@include box-shadow-important(0 0 3px $mediumGray);		
+}
+	input[type='text'].watermark {
+		color: $mediumGray !important;			
+	}	
+input[type="text"].input.error,
+input[type="password"].input.error,
+textarea.error {
+	@include box-shadow-important(0 0 3px $red);
+}
+	.ie8 input[type="text"].input.error,
+	.ie8 input[type="password"].input.error {
+		border: 1px solid $red;
+	}
+
+
