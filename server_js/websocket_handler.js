@@ -97,5 +97,15 @@ module.exports = function (request) {
   
   //Start the connection to twitter and and stream that data to the client socket  
   startStream();
-        
+
+  centerPoint = function(coords, callback) {
+      var centerPointX, centerPointY, coord, _i, _len;
+      centerPointX = centerPointY = 0;
+      for (_i = 0, _len = coords.length; _i < _len; _i++) {
+          coord = coords[_i];
+          centerPointX += coord[0];
+          centerPointY += coord[1];
+      }
+      return callback([centerPointX / coords.length, centerPointY / coords.length]);
+   };
 };
