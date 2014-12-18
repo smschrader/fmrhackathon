@@ -1,62 +1,6 @@
 (function () {
-    "use strict"; 
-    var opening_config = false;
+  var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb;
     
-    $(".icon-cog").on("click", function(){        
-        if(!opening_config){
-            opening_config = true;
-            $(this).parents("#tweet_header").stop().animate({
-                paddingBottom: 65
-            }, 500, function(){
-                opening_config = true;
-            }); 
-
-            $("#tweet_config").stop().animate({
-                bottom: 15
-            }, 500);
-        }
-        else {            
-             $(this).parents("#tweet_header").stop().animate({
-                paddingBottom: 15
-            }, 500, function(){
-                    opening_config = false;
-            }); 
-
-            $("#tweet_config").stop().animate({
-                bottom: -75
-            }, 500);  
-        }       
-    });
-    
-    $("#search").on("click", function(){   
-        console.log($("#search_terms").val());
-        wsSend($("#search_terms").val());
-    });
-    
-    
-    var opts = {
-      lines: 9, // The number of lines to draw
-      length: 4, // The length of each line
-      width: 2, // The line thickness
-      radius: 4, // The radius of the inner circle
-      corners: 0.1, // Corner roundness (0..1)
-      rotate: 0, // The rotation offset
-      direction: 1, // 1: clockwise, -1: counterclockwise
-      color: '#f1f1f1', // #rgb or #rrggbb or array of colors
-      speed: 1, // Rounds per second
-      trail: 60, // Afterglow percentage
-      shadow: false, // Whether to render a shadow
-      hwaccel: false, // Whether to use hardware acceleration
-      className: 'spinner', // The CSS class to assign to the spinner
-      zIndex: 2e9, // The z-index (defaults to 2000000000)
-      top: '50%', // Top position relative to parent
-      left: '50%' // Left position relative to parent
-    };
-    var spinner = new Spinner(opts).spin($(".spin")[0]);
-    
-    
-    
-  var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb, wsConnect, wsSend, connection;   
 
   map = void 0;
 
@@ -65,32 +9,33 @@
   $(document).ready(function() {
     var host, mapOptions, ws;
       mapOptions = {
-      zoom: 5,
-      center: new google.maps.LatLng(39.20, -84.50),
-      zoomControl: false,
+      zoom: 2,
+      center: new google.maps.LatLng(5, -58),
+      zoomControl: true,
       disableDefaultUI: true
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     if (!window.location.origin) {
-      window.location.origin = window.location.protocol + "//" + window.location.hostname +         (window.location.port ? ":" + window.location.port : "");
+      window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
     }
       
     console.log('Connect to websocket');  
-    connection = wsConnect('');
+    var connection = wsConnect('');
     return connection.onmessage = function (message) {
         var json;
         json = JSON.parse(message.data);
         console.log(json);
         return mapBomb(json);
-    };    
+    };
+      
   });
 
   wsConnect = function(keywords) {
-      connection = new WebSocket('ws://127.0.0.1:1337');
+      var connection = new WebSocket('ws://127.0.0.1:1337');
 
       connection.onopen = function () {
           console.log('Connection ready');
-          wsSend('');
+          wsSend(connection, '');
           //connection.send(JSON.stringify({trackList: ''}));
       };
 
@@ -101,23 +46,22 @@
       return connection;
   };
     
-  wsSend = function(keywords) {
+  wsSend = function(connection, keywords) {
       console.log('Connection send');
       connection.send(JSON.stringify({trackList: keywords}));
-    console.log(JSON.stringify({trackList: keywords}));
       
       connection.onerror = function (error) {
           console.log('error', error);
       };
-  };
-    
+  }
+  
   mapBomb = function(tweet) {
     var bomb, bombGif, lat, lng, marker, random, signPost;
     lat = tweet.coordinates[1];
     lng = tweet.coordinates[0];
     random = Math.random() * 100000;
     bombGif = '/includes/logos/fbomb.gif?';
-    signPost = '/includes/logos/froggy.png';
+    signPost = '/includes/logos/green_pin.png';
     bomb = new google.maps.Marker({
       position: new google.maps.LatLng(lat, lng),
       icon: bombGif + random,
@@ -137,29 +81,29 @@
     setTimeout(function() {
       bomb.setMap(null);
       marker.setMap(map);
-      //return createInfoWindow(marker, tweet);
+      return createInfoWindow(marker, tweet);
     }, 2500);
   };
 
   feedTweet = function(tweet, marker, infoWindow) {
     var HTMLtext, content, hour, img, minutes, sharedIMG, text, time, username;
     text = urlize(tweet.text);
-    img = '<div class="avatar"><img style="padding:0px;" src="' + tweet.profile_img + '" class="profilePic"></img></div>';
+    img = '<div class="row"><img style="padding:0px;" src="' + tweet.profile_img + '" class="col-xs-2 img-circle profilePic"></img>';
     time = (new Date() - new Date(tweet.date)) / 60000;
     hour = Math.floor(time / 60);
     minutes = Math.ceil(time % 60);
     time = hour > 0 ? hour + 'h' + minutes + 'm' : minutes + 'm';
-    time = '<span class="time">' + time + '</span>';
-    username = '<span class="name">' + tweet.name + '&nbsp;<small class="twitter_user"><a href="http://twitter.com/' + tweet.username + '">@' + tweet.username + '</a></small></span>';
-    HTMLtext = '<span class="copy">' + text + '</span>';
+    time = '<span class="col-xs-1 col-xs-offset-2 tweetTime">' + time + '</span>';
+    username = '<p><strong class="col-xs-4" style="padding-left:5px;padding-right:3px;color:white;">' + tweet.name + '&nbsp;</strong><small class="col-xs-2" style="padding-left:5px;padding-right:0px"><a href="http://twitter.com/' + tweet.username + '">@' + tweet.username + '</a></small>' + time;
+    HTMLtext = '<p class="col-xs-10 col-xs-offset-2 text">' + text + '</p></div>';
     if (tweet.media_url) {
-      sharedIMG = '<div class="row"><div class="tweet_image"><img class="img-responsive" style="padding-top:10px;padding-bottom:10px;width:100%;height:100%;" src="' + tweet.media_url + '"> </div></div>';
-      content = '<li id="' + tweet.id + '" class="tweet">' + img +  '<div class="user_data">' + username + time + HTMLtext + sharedIMG + '</div>';
+      sharedIMG = '<div class="row"><div class="col-xs-12"><img class="img-responsive" style="padding-top:10px;padding-bottom:10px;width:100%;height:100%;" src="' + tweet.media_url + '"> </div></div>';
+      content = '<div id="' + tweet.id + '"class="tweet">' + img + username + HTMLtext + sharedIMG;
     } else {
-      content = '<li id="' + tweet.id + '" class="tweet">' + img + '<div class="user_data">' + username + time + HTMLtext + '</div>';
+      content = '<div id="' + tweet.id + '"class="tweet">' + img + username + HTMLtext;
     }
-    content += '</li>';
-    $("#tweet_list").prepend(content);
+    content += '<hr></div>';
+    $(".tweetstream").prepend(content);
     $("#" + tweet.id).bind("mouseenter", function(event) {
       return google.maps.event.trigger(marker, 'click');
     });
