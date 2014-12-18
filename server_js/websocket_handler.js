@@ -81,20 +81,20 @@ module.exports = function (request) {
 
     //stream  twitter connection problems to console for monitoring
     stream.on('limit', function(limitMessage) {
-      return log.notice('mgingras (limit): ' + limitMessage.limit.track);
+      return log.info('mgingras (limit): ' + limitMessage.limit.track);
     });
     stream.on('warning', function(warning) {
-      return log.warn('mgingras (warning): ' + warning.warning.code + ' : ' + warning.warning.message);
+      return log.info('mgingras (warning): ' + warning.warning.code + ' : ' + warning.warning.message);
     });
     stream.on('disconnect', function(disconnectMessage) {
-      log.error('mgingras (disconnect): ' + disconnectMessage.disconnect.reason);
+      log.info('mgingras (disconnect): ' + disconnectMessage.disconnect.reason);
       return setTimeout(startStream, 5000);
     });
     stream.on('reconnect', function(req, res, connectInterval) {
-      log.error('mgingras (reconnect): ');
-      log.error('Reqeuest: ' + util.inspect(req));
-      log.error('Response: ' + util.inspect(res));
-      return log.warn('Connection Interval: ' + connectInterval);
+      log.info('mgingras (reconnect): ');
+      log.info('Reqeuest: ' + util.inspect(req));
+      log.info('Response: ' + util.inspect(res));
+      return log.info('Connection Interval: ' + connectInterval);
     });
   };
   
