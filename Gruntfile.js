@@ -8,190 +8,20 @@
 // If you want to recursively match all subfolders, use:
 // 'test/spec/**/*.js'
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
+//Require and iniatilze twit NPM Module
 var twit = require('twit'),
-    //WebSocketServer = require('ws').Server,
     config = require('./config.json');
 
-console.log(config)
-
-//All the converted coffee websocket madness!
-var Twitter, centerPoint, limit, retweet, retweetedUsers, retweets, startStream, wss, server;
-
-//wss = new WebSocketServer({
-//  port: 8000
-//});
-//
-//wss.on('connection', function(ws) {
-//  return console.log('WebSocket Connection!');
-//});
-
-Twitter = new twit({
+var Twitter = new twit({
   consumer_key: config.consumer_key,
   consumer_secret: config.consumer_secret,
   access_token: config.oauth_token,
   access_token_secret: config.oauth_token_secret
 });
 
-//retweets = [];
-//
-//retweetedUsers = [];
-//
-//wss.broadcast = function(data) {
-//  var i, _results;
-//  _results = [];
-//  for (i in this.clients) {
-//    _results.push(this.clients[i].send(data));
-//  }
-//  return _results;
-//};
-//
-//startStream = function() {
-//  var stream;
-//  stream = Twitter.stream('statuses/filter', {
-//    track: config.track
-//  });
-//  stream.on('tweet', function(tweet) {
-//    var tweetData;
-//    retweet(tweet.user.screen_name, tweet.id_str, tweet.user.followers_count);
-//    tweetData = void 0;
-//    if (tweet.coordinates) {
-//      tweetData = {
-//        username: tweet.user.screen_name,
-//        name: tweet.user.name,
-//        date: tweet.created_at,
-//        text: tweet.text,
-//        coordinates: tweet.coordinates.coordinates,
-//        profile_img: tweet.user.profile_image_url
-//      };
-//      if (tweet.entities.media) {
-//        tweetData['media_url'] = tweet.entities.media[0].media_url;
-//      }
-//      return wss.broadcast(JSON.stringify(tweetData));
-//    } else if (tweet.place) {
-//      if (tweet.place.bounding_box) {
-//        if (tweet.place.bounding_box.type === 'Polygon') {
-//          return centerPoint(tweet.place.bounding_box.coordinates[0], function(center) {
-//            tweetData = {
-//              username: tweet.user.screen_name,
-//              name: tweet.user.name,
-//              date: tweet.created_at,
-//              text: tweet.text,
-//              coordinates: center,
-//              profile_img: tweet.user.profile_image_url
-//            };
-//            if (tweet.entities.media) {
-//              tweetData['media_url'] = tweet.entities.media[0].media_url;
-//            }
-//            return wss.broadcast(JSON.stringify(tweetData));
-//          });
-//        } else {
-//          return console.log('WTF Place: ' + util.inspect(tweet.place));
-//        }
-//      } else {
-//        return console.log('Place without bounding_box: ' + util.inspect(tweet.place));
-//      }
-//    }
-//  });
-//  stream.on('limit', function(limitMessage) {
-//    return console.log('mgingras (limit): ' + limitMessage.limit.track);
-//  });
-//  stream.on('warning', function(warning) {
-//    return console.log('mgingras (warning): ' + warning.warning.code + ' : ' + warning.warning.message);
-//  });
-//  stream.on('disconnect', function(disconnectMessage) {
-//    console.log('mgingras (disconnect): ' + disconnectMessage.disconnect.reason);
-//    return setTimeout(startStream, 5000);
-//  });
-//  stream.on('reconnect', function(req, res, connectInterval) {
-//    console.log('mgingras (reconnect): ');
-//    console.log('Reqeuest: ' + req);
-//    console.log('Response: ' + res);
-//    return console.log('Connection Interval: ' + connectInterval);
-//  });
-//};
-//
-//startStream();
-//
-//centerPoint = function(coords, callback) {
-//  var centerPointX, centerPointY, coord, _i, _len;
-//  centerPointX = centerPointY = 0;
-//  for (_i = 0, _len = coords.length; _i < _len; _i++) {
-//    coord = coords[_i];
-//    centerPointX += coord[0];
-//    centerPointY += coord[1];
-//  }
-//  return callback([centerPointX / coords.length, centerPointY / coords.length]);
-//};
-//
-//limit = 0;
-//
-//setInterval(function() {
-//  return limit = 1;
-//}, 600000);
-//
-//retweet = function(screen_name, tweetID, followers) {
-//  var index, mostPopular, tweet, tweetData, _i, _len;
-//  if (limit !== 0 && retweets.length > 0) {
-//    limit--;
-//    mostPopular = 0;
-//    index = 0;
-//    for (_i = 0, _len = retweets.length; _i < _len; _i++) {
-//      tweet = retweets[_i];
-//      if (tweet.followers >= mostPopular) {
-//        mostPopular = tweet.followers;
-//        index = _i;
-//      }
-//    }
-//    return Twitter.post('statuses/retweet/:id', {
-//      id: retweets[index].tweetID
-//    }, function(err) {
-//      if (err) {
-//        console.log('mgingras (Retweet Error): ' + util.inspect(err));
-//      }
-//      retweetedUsers.push(screen_name);
-//      return retweets = [];
-//    });
-//  } else {
-//    if (retweetedUsers.indexOf(screen_name) < 0) {
-//      tweetData = {
-//        screen_name: screen_name,
-//        tweetID: tweetID,
-//        followers: followers
-//      };
-//      return retweets.push(tweetData);
-//    }
-//  }
-//};
-//
-//
-//process.on('uncaughtException', function(err) {
-//  return console.log('Uncaught Error!!! : ' + err);
-//});
-
-
 
 //All the grunt stuff!
-=======
-=======
->>>>>>> Stashed changes
-var Twit = require('twit');
-
-var Twitter = new Twit({
-    consumer_key:         'L9w6gUWqsITRN1EpV23M1w'
-  , consumer_secret:      'oJUexwxzn194lbIjB6J4AmFFvR8eQSZjrh8fGtHlE'
-  , access_token:         '14253620-hVIu7n5izuCXuDZRVEKBfbfCtRq1wVB4MJPBZg9HA'
-  , access_token_secret:  'MYs7mxJfuuqaU9t2kE5OUpKfljxV9T2AGhOEUeSVcoo64'
-})
-
-//var googleapis = require('googleapis');
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
@@ -604,10 +434,10 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-        'websocket',
+      'websocket',
       'autoprefixer',
       'connect:livereload',
-    'jade',
+      'jade',
       'watch'
     ]);
   });
@@ -637,7 +467,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
-      'jade:dist',
+    'jade:dist',
     'useminPrepare',      
     'concurrent:dist',
     'autoprefixer',
@@ -657,11 +487,4 @@ module.exports = function (grunt) {
     'build'
   ]);
     
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 };
