@@ -8,7 +8,6 @@
 
 $headerfont: NotoSerifRegular, Arial, Helvetica, Sans-Serif;
 $textfont: NotoSansRegular, Arial, Helvetica, Sans-Serif;
-$textfont: NotoSansRegular, Arial, Helvetica, Sans-Serif;
 $Semibold: NotoSansBold, Arial, Helvetica, Sans-Serif;
 
 $darkGray: #636363;
@@ -124,9 +123,10 @@ h6 {
                     left: 24px !important;   
                 }
         #tweet_header p.tracking_terms {
-            font-size: .8em;
+            font-size: .9em;
             color: $linkColor;
             margin: 0 20px 20px 10px;
+            font-family: $Semibold;
         }
         #tweet_config {
             width: 100%; 
@@ -153,7 +153,58 @@ h6 {
         }
         #tweet_list {
             list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+            #tweet_list li {
+                width: 100%; 
+                margin: 0;
+                padding: 25px 0;
+                border-bottom: 1px solid $white;
+                @include clear-fix();
+            }
+            #tweet_list li:last-child {
+                border: none;
+            }
+                #tweet_list li .avatar {
+                    float: left;
+                    margin-right: 15px; 
+                    padding-left: 3%;
+                    width: 13%;
+                }
+                    #tweet_list li .avatar img {
+                        border-radius: 10px;   
                     }
+                #tweet_list li .user_data {
+                    float: left;           
+                    color: $white;
+                    font-size: .7em;
+                    width: 80%;
+                    position: relative;
+                }
+                    #tweet_list li .user_data .time {
+                        position: absolute;
+                        top: -5px;
+                        right: -5px;
+                        color: $mediumGray;
+                    }
+                    #tweet_list li .user_data .name {
+                        display: block;
+                        width: 100%;
+                        margin: 0 0 8px 0;
+                        position: relative;
+                        font-size: 1.4em;
+                        font-family: headerfont;
+                    }
+                    #tweet_list li .user_data .name .twitter_user {                        
+                        margin: 0 0 0 15px;
+                    }
+                         #tweet_list li .user_data .name .twitter_user a,
+                         #tweet_list li .user_data .copy a {
+                           color: $linkColor;
+                             text-decoration: none;
+                         }
+
         
     
     

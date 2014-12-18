@@ -35,13 +35,13 @@
     
     var opts = {
       lines: 9, // The number of lines to draw
-      length: 6, // The length of each line
-      width: 2, // The line thickness
-      radius: 7, // The radius of the inner circle
+      length: 5, // The length of each line
+      width: 3, // The line thickness
+      radius: 5, // The radius of the inner circle
       corners: 0.1, // Corner roundness (0..1)
       rotate: 0, // The rotation offset
       direction: 1, // 1: clockwise, -1: counterclockwise
-      color: '#000', // #rgb or #rrggbb or array of colors
+      color: '#f1f1f1', // #rgb or #rrggbb or array of colors
       speed: 1, // Rounds per second
       trail: 60, // Afterglow percentage
       shadow: false, // Whether to render a shadow
@@ -133,19 +133,19 @@
   feedTweet = function(tweet, marker, infoWindow) {
     var HTMLtext, content, hour, img, minutes, sharedIMG, text, time, username;
     text = urlize(tweet.text);
-    img = '<div class="avatar"><img style="padding:0px;" src="' + tweet.profile_img + '" class="profilePic"></img>';
+    img = '<div class="avatar"><img style="padding:0px;" src="' + tweet.profile_img + '" class="profilePic"></img></div>';
     time = (new Date() - new Date(tweet.date)) / 60000;
     hour = Math.floor(time / 60);
     minutes = Math.ceil(time % 60);
     time = hour > 0 ? hour + 'h' + minutes + 'm' : minutes + 'm';
     time = '<span class="time">' + time + '</span>';
-    username = '<span class="name">' + tweet.name + '&nbsp;<small class="twitter_user"><a href="http://twitter.com/' + tweet.username + '">@' + tweet.username + '</a></small>' + time;
-    HTMLtext = '<span class="copy">' + text + '</p></div>';
+    username = '<span class="name">' + tweet.name + '&nbsp;<small class="twitter_user"><a href="http://twitter.com/' + tweet.username + '">@' + tweet.username + '</a></small></span>';
+    HTMLtext = '<span class="copy">' + text + '</span>';
     if (tweet.media_url) {
       sharedIMG = '<div class="row"><div class="tweet_image"><img class="img-responsive" style="padding-top:10px;padding-bottom:10px;width:100%;height:100%;" src="' + tweet.media_url + '"> </div></div>';
-      content = '<li id="' + tweet.id + '" class="tweet">' + img + username + HTMLtext + sharedIMG;
+      content = '<li id="' + tweet.id + '" class="tweet">' + img +  '<div class="user_data">' + username + time + HTMLtext + sharedIMG + '</div>';
     } else {
-      content = '<li id="' + tweet.id + '" class="tweet">' + img + '<div class="user_data">' + username + HTMLtext + '</div>';
+      content = '<li id="' + tweet.id + '" class="tweet">' + img + '<div class="user_data">' + username + time + HTMLtext + '</div>';
     }
     content += '</li>';
     $("#tweet_list").prepend(content);
