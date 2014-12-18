@@ -30,7 +30,7 @@ html {
 }
 body {
     font-family: $textfont;
-    font-size: 1.2em;
+    font-size: .8em;
     color: $darkGray;
     line-height: 1.4;
     font-weight: normal;
@@ -101,7 +101,7 @@ h6 {
             border-bottom: 1px solid $white;
         }
         #tweet_header p {
-            font-size: .8em;           
+            font-size: 1em;           
             color: $lightGray;
             padding: 8px 25px 0;
             margin: 5px 0 0;
@@ -140,9 +140,9 @@ h6 {
                 padding: 0;
             }
             #tweet_config .input {
-                width: 60%;
-                height: 40px !important;
-                margin: 0 35px 0 25px;
+                width: 50%;
+                height: 28px !important;
+                margin: 0 25px 0 25px;
             }
             #tweet_config .button {
                    
@@ -170,7 +170,7 @@ h6 {
                     float: left;
                     margin-right: 15px; 
                     padding-left: 3%;
-                    width: 13%;
+                    width: 16%;
                 }
                     #tweet_list li .avatar img {
                         border-radius: 10px;   
@@ -178,14 +178,14 @@ h6 {
                 #tweet_list li .user_data {
                     float: left;           
                     color: $white;
-                    font-size: .7em;
-                    width: 80%;
+                    font-size: .8em;
+                    width: 77%;
                     position: relative;
                 }
                     #tweet_list li .user_data .time {
                         position: absolute;
-                        top: -5px;
-                        right: -5px;
+                        top: 0px;
+                        right: 0px;
                         color: $mediumGray;
                     }
                     #tweet_list li .user_data .name {
