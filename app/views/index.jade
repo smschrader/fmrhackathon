@@ -1,28 +1,41 @@
 extends layout
 
 block content    
-    #nav_container        
-        span.icon-cog
-        .input_container
-            p.input_copy
-            input.input(
-                type='text'
-                name='searchterms'
-                id="search_tearms"            
-            )
-            a.button.blue(href='#', id='search') watch
-
+    #nav_container
+        #tweet_header
+            h1 @Fit_Twit
+            p Tracking...
+                span.spin
+                span.icon-cog
+            p.tracking_terms test, testing, fidelity, blahhha
+            #tweet_config            
+                .input_container
+                    p.input_copy Terms must be a comma delimited.
+                    input.input(
+                        type='text'
+                        name='searchterms'
+                        id="search_tearms"            
+                    )
+                    a.button.blue(href='#', id='search') track        
+        
+        
+        #live_tweets
+            ul#tweet_list
+                li.tweet
+                    .avatar
+                    .user_data
+                        span.name                        
+                        span.time
+                        span.copy
+                        
     #map-canvas
-
+    
+    script(src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyAzLv-XGfssO8sOoii7Iuez65iQyXBpoP8")
+    
     // build:js(.) scripts/vendor.js
     // bower:js
     script(src='bower_components/jquery/dist/jquery.js')  
-    script(src='../scripts/main.js')
+    scrcipt(src='bower_components/spin.js/spin.js')
+    script(src='../scripts/main.js')    
     // endbower
     // endbuild
-
-
-    script(src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyAzLv-XGfssO8sOoii7Iuez65iQyXBpoP8")
-        
-    
-        

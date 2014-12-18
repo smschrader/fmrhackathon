@@ -75,10 +75,70 @@ h6 {
 //-----------------------------------------------------------------------------------------------
 #nav_container {
     position: absolute;
-    top: 50px;
-    right: 50px;
-    z-index: 999;    
+    top: 0px;
+    right: 0px;
+    z-index: 999; 
+    width: 25%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
 }
+    #tweet_header {
+        width: 100%;
+        padding: 0 0 15px 0;
+        border-bottom: 1px solid $white;
+        overflow-y: hidden;
+        position: relative;
+    }
+        #tweet_header h1 {
+            font-family: $Semibold;
+            font-size: 3.5em;            
+            margin: 0 15px 5px 15px;
+            color: $green;
+            padding: 10px 0 10px 5px;
+            border-bottom: 1px solid $white;
+        }
+        #tweet_header p {
+            font-size: 1.2em;           
+            color: $lightGray;
+            padding: 8px 25px 0;
+            margin: 5px 0 0;
+            position: relative;
+        }
+            #tweet_header p span.icon-cog {
+                font-size: 1.1em;
+                color: $white;
+                position: absolute;
+                top: 10px;
+                right: 35px;
+                cursor: pointer;
+            }
+        #tweet_header p.tracking_terms {
+            font-size: 1.1em;
+            color: $linkColor;
+            margin: 0 20px 20px 10px;
+        }
+        #tweet_config {
+            width: 100%; 
+            position: absolute;
+            bottom: -75px;
+        }
+            #tweet_config p.input_copy {
+                font-size: .8em;
+                color: $mediumGray;
+                margin: 0 0 0 23px;
+                padding: 0;
+            }
+            #tweet_config .input {
+                width: 60%;
+                height: 40px !important;
+                margin: 0 35px 0 25px;
+            }
+            #tweet_config .button {
+                   
+            }
+        
+    
+    
     
 
 
@@ -91,8 +151,8 @@ h6 {
 a.button, input[type="button"].button, input[type="submit"].button, button.button {
 	display: inline-block;
 	line-height: 2em;
-	padding: 0 10px;	
-	background: $lightGray;
+	padding: 0 25px;	
+	background: $linkColor;
 	border: 1px solid $mediumGray;
 	position: relative;
 	text-transform: capitalize;
@@ -104,6 +164,8 @@ a.button, input[type="button"].button, input[type="submit"].button, button.butto
 	@include transition-property('background, box-shadow');
 	@include transition-duration(.25s);
 	outline: none;
+    color: $white;
+    text-decoration: none;
 }
 a.button span {
 	padding: 0 0 0 10px;
@@ -111,10 +173,11 @@ a.button span {
 }
 //-------------------------------------------Blue Button ------------------------------------
 	.button.blue {
-		color: $linkColor;
+		color: $white;
 	}
 	.button.blue:hover,
 	.button.blue:focus {	
+        color: $linkColor;
 		@include transition-property('background, box-shadow');
 		@include transition-duration(.25s);	
 		@include box-shadow(0 0 3px $linkColor);

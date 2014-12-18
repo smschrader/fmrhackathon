@@ -1,6 +1,37 @@
 (function () {
-  var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb;
+    "use strict"; 
+    var opening_config = false;
     
+    $(".icon-cog").on("click", function(){        
+        if(!opening_config){
+            opening_config = true;
+            $(this).parents("#tweet_header").stop().animate({
+                paddingBottom: 77
+            }, 500, function(){
+                opening_config = true;
+            }); 
+
+            $("#tweet_config").stop().animate({
+                bottom: 15
+            }, 500);
+        }
+        else {            
+             $(this).parents("#tweet_header").stop().animate({
+                paddingBottom: 15
+            }, 500, function(){
+                    opening_config = false;
+            }); 
+
+            $("#tweet_config").stop().animate({
+                bottom: -77
+            }, 500);  
+        }       
+    });
+    
+    
+    
+    
+  var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb, wsConnect;   
 
   map = void 0;
 
@@ -9,25 +40,27 @@
   $(document).ready(function() {
     var host, mapOptions, ws;
       mapOptions = {
-      zoom: 2,
-      center: new google.maps.LatLng(5, -58),
-      zoomControl: true,
+      zoom: 5,
+      center: new google.maps.LatLng(39.20, -84.50),
+      zoomControl: false,
       disableDefaultUI: true
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     if (!window.location.origin) {
-      window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
+      window.location.origin = window.location.protocol + "//" + window.location.hostname +         (window.location.port ? ":" + window.location.port : "");
     }
       
     console.log('Connect to websocket');  
-    var connection = wsConnect('');
-    return connection.onmessage = function (message) {
-        var json;
-        json = JSON.parse(message.data);
-        console.log(json);
-        return mapBomb(json);
-    };
+//    var connection = wsConnect('');
+//    return connection.onmessage = function (message) {
+//        var json;
+//        json = JSON.parse(message.data);
+//        console.log(json);
+//        return mapBomb(json);
+    //};   
       
+      
+    
   });
 
   wsConnect = function(keywords) {
@@ -79,22 +112,22 @@
   feedTweet = function(tweet, marker, infoWindow) {
     var HTMLtext, content, hour, img, minutes, sharedIMG, text, time, username;
     text = urlize(tweet.text);
-    img = '<div class="row"><img style="padding:0px;" src="' + tweet.profile_img + '" class="col-xs-2 img-circle profilePic"></img>';
+    img = '<div class="avatar"><img style="padding:0px;" src="' + tweet.profile_img + '" class="profilePic"></img>';
     time = (new Date() - new Date(tweet.date)) / 60000;
     hour = Math.floor(time / 60);
     minutes = Math.ceil(time % 60);
     time = hour > 0 ? hour + 'h' + minutes + 'm' : minutes + 'm';
-    time = '<span class="col-xs-1 col-xs-offset-2 tweetTime">' + time + '</span>';
-    username = '<p><strong class="col-xs-4" style="padding-left:5px;padding-right:3px;color:white;">' + tweet.name + '&nbsp;</strong><small class="col-xs-2" style="padding-left:5px;padding-right:0px"><a href="http://twitter.com/' + tweet.username + '">@' + tweet.username + '</a></small>' + time;
-    HTMLtext = '<p class="col-xs-10 col-xs-offset-2 text">' + text + '</p></div>';
+    time = '<span class="time">' + time + '</span>';
+    username = '<span class="name">' + tweet.name + '&nbsp;<small class="twitter_user"><a href="http://twitter.com/' + tweet.username + '">@' + tweet.username + '</a></small>' + time;
+    HTMLtext = '<span class="copy">' + text + '</p></div>';
     if (tweet.media_url) {
-      sharedIMG = '<div class="row"><div class="col-xs-12"><img class="img-responsive" style="padding-top:10px;padding-bottom:10px;width:100%;height:100%;" src="' + tweet.media_url + '"> </div></div>';
-      content = '<div id="' + tweet.id + '"class="tweet">' + img + username + HTMLtext + sharedIMG;
+      sharedIMG = '<div class="row"><div class="tweet_image"><img class="img-responsive" style="padding-top:10px;padding-bottom:10px;width:100%;height:100%;" src="' + tweet.media_url + '"> </div></div>';
+      content = '<li id="' + tweet.id + '" class="tweet">' + img + username + HTMLtext + sharedIMG;
     } else {
-      content = '<div id="' + tweet.id + '"class="tweet">' + img + username + HTMLtext;
+      content = '<li id="' + tweet.id + '" class="tweet">' + img + '<div class="user_data">' + username + HTMLtext + '</div>';
     }
-    content += '<hr></div>';
-    $(".tweetstream").prepend(content);
+    content += '</li>';
+    $("#tweet_list").prepend(content);
     $("#" + tweet.id).bind("mouseenter", function(event) {
       return google.maps.event.trigger(marker, 'click');
     });
