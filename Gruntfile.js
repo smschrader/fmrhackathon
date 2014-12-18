@@ -9,18 +9,6 @@
 // 'test/spec/**/*.js'
 
 
-//Require and iniatilze twit NPM Module
-var twit = require('twit'),
-    config = require('./config.json');
-
-var Twitter = new twit({
-  consumer_key: config.consumer_key,
-  consumer_secret: config.consumer_secret,
-  access_token: config.oauth_token,
-  access_token_secret: config.oauth_token_secret
-});
-
-
 //All the grunt stuff!
 module.exports = function (grunt) {
 
