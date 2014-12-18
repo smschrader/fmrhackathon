@@ -30,7 +30,10 @@
     
     $("#search").on("click", function(){   
         console.log($("#search_terms").val());
-        wsSend($("#search_terms").val());
+        var vals = $("#search_terms").val();
+        
+        wsSend(vals);
+        $(".tracking_terms").text(vals)
     });
     
     
@@ -65,7 +68,7 @@
   $(document).ready(function() {
     var host, mapOptions, ws;
       mapOptions = {
-      zoom: 5,
+      zoom: 4,
       center: new google.maps.LatLng(39.20, -84.50),
       zoomControl: false,
       disableDefaultUI: true
@@ -137,7 +140,7 @@
     setTimeout(function() {
       bomb.setMap(null);
       marker.setMap(map);
-      //return createInfoWindow(marker, tweet);
+//      return createInfoWindow(marker, tweet);
     }, 2500);
   };
 
