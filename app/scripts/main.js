@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb;
 
   map = void 0;
@@ -17,6 +17,8 @@
     if (!window.location.origin) {
       window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
     }
+      
+    getTweets('');
 //    host = location.origin.replace(/^http/, 'ws');
 //    ws = new WebSocket(host);
 //    return ws.onmessage = function(event) {
@@ -26,6 +28,29 @@
 //    };
   });
 
+  getTweets = function(keywords) {
+      var connection = new WebSocket('ws://127.0.0.1:1337');
+
+  connection.onopen = function () {
+    console.log('Connection ready');
+
+    connection.send(JSON.stringify({trackList: keywords}));
+  };
+
+  connection.onerror = function (error) {
+    console.log('error', error);
+  };
+
+  connection.onmessage = function (message) {
+    try {
+      var json = JSON.parse(message.data);
+      console.log(json);
+    } catch (e) {
+      console.log('This doesn\'t look like a valid JSON: ', message.data);
+    }
+  };
+  };
+    
   mapBomb = function(tweet) {
     var bomb, bombGif, lat, lng, marker, random, signPost;
     lat = tweet.coordinates[1];
