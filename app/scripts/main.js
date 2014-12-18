@@ -29,7 +29,8 @@
     });
     
     $("#search").on("click", function(){   
-        
+        console.log($("#search_terms").val());
+        wsSend($("#search_terms").val());
     });
     
     
@@ -55,7 +56,7 @@
     
     
     
-  var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb, wsConnect;   
+  var bombs, createInfoWindow, feedTweet, lastOpenInfoWin, map, mapBomb, wsConnect, wsSend, connection;   
 
   map = void 0;
 
@@ -75,7 +76,7 @@
     }
       
     console.log('Connect to websocket');  
-    var connection = wsConnect('');
+    connection = wsConnect('');
     return connection.onmessage = function (message) {
         var json;
         json = JSON.parse(message.data);
@@ -85,12 +86,12 @@
   });
 
   wsConnect = function(keywords) {
-      var connection = new WebSocket('ws://127.0.0.1:1337');
+      connection = new WebSocket('ws://127.0.0.1:1337');
 
       connection.onopen = function () {
           console.log('Connection ready');
-
-          connection.send(JSON.stringify({trackList: keywords}));
+          wsSend('');
+          //connection.send(JSON.stringify({trackList: ''}));
       };
 
       connection.onerror = function (error) {
@@ -98,6 +99,16 @@
       };
 
       return connection;
+  };
+    
+  wsSend = function(keywords) {
+      console.log('Connection send');
+      connection.send(JSON.stringify({trackList: keywords}));
+    console.log(JSON.stringify({trackList: keywords}));
+      
+      connection.onerror = function (error) {
+          console.log('error', error);
+      };
   };
     
   mapBomb = function(tweet) {

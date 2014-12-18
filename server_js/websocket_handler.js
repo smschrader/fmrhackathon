@@ -20,11 +20,14 @@ module.exports = function (request) {
   
   var requestTrackList = config.track;
   
+  var stream; 
+  
   var startStream = function() {
-    var stream;
+    
     stream = Twitter.stream('statuses/filter', {
       track: requestTrackList
     });
+    
     log.info('stream started for search string "' + requestTrackList +'"');
     stream.on('tweet', function(tweet) {
       var tweetData;
@@ -103,13 +106,15 @@ module.exports = function (request) {
 
       var object = JSON.parse(message.utf8Data);
 
-      log.debug(object);
+      log.info(object);
 
       if (object.trackList){
         requestTrackList = object.trackList;
         log.info('Recieved keyword: ' + requestTrackList);
       }
     }
+    
+    if(stream){stream.stop(); log.info('stream stopped');}
 
     //Start the connection to twitter and and stream that data to the client socket  
     startStream();
