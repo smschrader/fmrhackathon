@@ -28,6 +28,10 @@
         }       
     });
     
+    $("#search").on("click", function(){   
+        
+    });
+    
     
     var opts = {
       lines: 9, // The number of lines to draw

@@ -45,7 +45,9 @@ body {
     min-width: 990px;
     min-height: 100%;
     padding: 0;	    
-    position: relative;
+    position: absolute !important;
+    top:0;
+    left: 0;
     margin: 0;    	
 }
 h1, h2,	h3, h4, h5, h6 {
@@ -74,13 +76,15 @@ h6 {
 //------------------------------------- Site Wide Styles ----------------------------------------
 //-----------------------------------------------------------------------------------------------
 #nav_container {
-    position: absolute;
+    position: fixed;    
     top: 0px;
     right: 0px;
     z-index: 999; 
     width: 25%;
     height: 100%;
     background: rgba(0, 0, 0, .7);
+    overflow: auto;
+    overflow-x: hidden;
 }
     #tweet_header {
         width: 100%;
@@ -105,7 +109,7 @@ h6 {
             position: relative;
         }
             #tweet_header p span.icon-cog {
-                font-size: 1em;
+                font-size: 1.2em;
                 color: $white;
                 position: absolute;
                 top: 10px;
@@ -115,7 +119,10 @@ h6 {
             #tweet_header p span.spin {
                 color: $white;   
                 position: relative;
-            }
+            }   
+                .spin .spinner {
+                    left: 24px !important;   
+                }
         #tweet_header p.tracking_terms {
             font-size: .8em;
             color: $linkColor;
@@ -140,6 +147,13 @@ h6 {
             #tweet_config .button {
                    
             }
+
+        #live_tweets {
+            width: 100%;
+        }
+        #tweet_list {
+            list-style: none;
+                    }
         
     
     
