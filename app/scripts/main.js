@@ -51,13 +51,13 @@
     }
       
     console.log('Connect to websocket');  
-//    var connection = wsConnect('');
-//    return connection.onmessage = function (message) {
-//        var json;
-//        json = JSON.parse(message.data);
-//        console.log(json);
-//        return mapBomb(json);
-    //};   
+    var connection = wsConnect('');
+    return connection.onmessage = function (message) {
+        var json;
+        json = JSON.parse(message.data);
+        console.log(json);
+        return mapBomb(json);
+    };   
       
       
     

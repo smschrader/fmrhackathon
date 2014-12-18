@@ -25,7 +25,7 @@ module.exports = function (request) {
     stream = Twitter.stream('statuses/filter', {
       track: requestTrackList
     });
-    log.info('stream started for search string ' + requestTrackList );
+    log.info('stream started for search string "' + requestTrackList +'"');
     stream.on('tweet', function(tweet) {
       var tweetData;
 
@@ -92,7 +92,7 @@ module.exports = function (request) {
     });
     stream.on('reconnect', function(req, res, connectInterval) {
       log.info('mgingras (reconnect): ');
-      log.info('Reqeuest: ' + util.inspect(req));
+      log.info('Request: ' + util.inspect(req));
       log.info('Response: ' + util.inspect(res));
       return log.info('Connection Interval: ' + connectInterval);
     });
@@ -126,5 +126,10 @@ module.exports = function (request) {
       }
       return callback([centerPointX / coords.length, centerPointY / coords.length]);
    };
+  
+  limit = 0;
+  setInterval(function() {
+    return limit = 1;
+  }, 600000);
 
 };
